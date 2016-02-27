@@ -1,0 +1,25 @@
+db:
+  image: mariadb:latest
+  environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_DATABASE=social
+    - MYSQL_USER=social
+    - MYSQL_PASSWORD=social
+server:
+  build: .
+  ports:
+    - "8001:80"
+  volumes:
+    - ./file:/var/www/html/file
+    - ./avatar:/var/www/html/avatar
+  links:
+    - db
+  environment:
+    - SITE_NAME=status.lmorchard.com
+    - SITE_SSL=never
+    - SITE_SERVER=testpilot.dev:8001
+    - SITE_PATH=
+    - SITE_PROFILE=singleuser
+    - ADMIN_NICK=lmorchard
+    - ADMIN_PASS=(your password here)
+    - ADMIN_EMAIL=me@lmorchard.com
